@@ -42,6 +42,18 @@
 #define u_int64_t uint64_t
 #endif
 
+#ifdef _WIN32
+#  ifndef __GNUC__
+   /* MSVC/Borland */
+#  else
+   /* MinGW32 */
+   typedef unsigned int u_int32_t;
+   typedef unsigned char u_int8_t;
+   typedef unsigned short u_int16_t;
+#  endif
+#endif
+
+
 /* Schneier specifies a maximum key length of 56 bytes.
  * This ensures that every key bit affects every cipher
  * bit.  However, the subkeys can hold up to 72 bytes.
