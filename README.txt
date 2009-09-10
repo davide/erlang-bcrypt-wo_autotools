@@ -20,15 +20,19 @@ building the bcrypt port with Visual C++ Express 2008.
 1) Build the bcrypt port using your preferred method
 	- make mingw
 	- make gcc
+	- opening the solution file priv/build/msvc/bcrypt.sln on Visual C++ Express 2008
+	  and building the Release Configuration
 	
 2) Build the erlang files
 	- make erl
+
 Actually this target is already listed as a dependency in the previous
 makefile targets so this step isn't really necessary.
 
 3) Run the application via:
 		- make run_mingw
 		- make run_gcc
+		- make run_msvc
 	Or passing the appropriate path to start.sh:
 		./start.sh priv/c_src/bcrypt/mingw/bcrypt.exe
 
