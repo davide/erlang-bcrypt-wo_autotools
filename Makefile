@@ -18,6 +18,8 @@ run_mingw: erl
 run_gcc: erl
 	./start.sh priv/c_src/bcrypt/gcc/bcrypt
 
+run_msvc: erl
+	./start.sh priv/c_src/bcrypt/msvc/Release/bcrypt.exe
 clean:
 	rm -rf $(EBINDIR)/*.beam erl_crash.dump
 	cd priv/build/mingw; make clean

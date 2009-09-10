@@ -45,6 +45,9 @@
 #ifdef _WIN32
 #  ifndef __GNUC__
    /* MSVC/Borland */
+   typedef unsigned int u_int32_t;
+   typedef unsigned char u_int8_t;
+   typedef unsigned short u_int16_t;
 #  else
    /* MinGW32 */
    typedef unsigned int u_int32_t;

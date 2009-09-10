@@ -19,7 +19,12 @@
 #include <string.h>
 #include <erl_interface.h>
 #include <ei.h>
+
+#ifdef __WIN32__
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 
 #include "erl_blf.h"
 

@@ -49,7 +49,12 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <string.h>
-//#include <pwd.h>
+
+#ifdef __WIN32__
+#define snprintf _snprintf
+#else
+#include <pwd.h>
+#endif
 
 #include "erl_blf.h"
 
