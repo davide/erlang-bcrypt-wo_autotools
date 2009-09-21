@@ -1,4 +1,5 @@
 %% @author Hunter Morris <huntermorris@gmail.com>
+%% @author Davide Marquês <nesrait@gmail.com>
 %% @copyright 2009 Hunter Morris
 %%
 %% @doc Wrapper around the OpenBSD Blowfish password hashing algorithm, as
@@ -25,6 +26,7 @@
 %% OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 -module(bcrypt).
 -author('Hunter Morris <huntermorris@gmail.com>').
+-author('Davide Marquês <nesrait@gmail.com>').
 
 -behaviour(gen_server).
 
@@ -36,6 +38,8 @@
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2,
          code_change/3]).
+
+-include_lib("kernel/include/file.hrl").
 
 -define(CMD_SALT, 0).
 -define(CMD_HASHPW, 1).
@@ -53,11 +57,20 @@
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-    case os:getenv("BCRYPT_PATH") of
-	false ->
-	    {error, "BCRYPT_PATH variable not set!"};
-	Filename ->
-	    start_link(Filename)
+    case application:get_env(bcrypt, bcrypt_filename) of
+        {ok, Filename} ->
+			%% Check if the binary exists
+			case file:read_file_info(Filename) of
+				{ok, _FileInfo} ->
+					%% TODO: check if it's executable
+					%%case FileInfo#file_info.mode of
+					%%end;
+					start_link(Filename);
+				{error, Reason} ->
+					{error, {bcrypt_binary_not_found, Reason}}
+			end;
+        undefined ->
+            {error, "env variable 'bcrypt_filename' not set!"}
     end.
 
 %%--------------------------------------------------------------------

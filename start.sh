@@ -1,8 +1,11 @@
 #!/bin/sh
 cd `dirname $0`
 if [ -n "$1" ]; then
-	export BCRYPT_PATH=$1
-	exec erl -pa $PWD/ebin -boot start_sasl -s bcrypt_app
+	if [ -f "$1.config" ]; then
+		exec erl -config $1 -pa $PWD/ebin -boot start_sasl -s bcrypt_app
+	else
+		echo "No such file: $1.config!"
+	fi
 else
-	echo "Missing path to the bcrypt binary as parameter!"
+	exec erl -pa $PWD/ebin -boot start_sasl -s bcrypt_app
 fi
