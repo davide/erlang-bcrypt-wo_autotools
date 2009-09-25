@@ -5,7 +5,7 @@
    {vsn, "0.2.0"},
    {modules, [bcrypt_app, bcrypt_sup, bcrypt]},
    {registered, [bcrypt]},
-   {env, [{bcrypt_filename, "priv/c_src/bcrypt/msvc/Release/bcrypt.exe"}]},
+   {env, [{bcrypt_priv_path, "c_src/bcrypt/msvc/Release/bcrypt.exe"}]},
    {applications, [kernel, stdlib, sasl, crypto]},
    {mod, {bcrypt_app, []}}
   ]

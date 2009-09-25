@@ -57,8 +57,10 @@
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-    case application:get_env(bcrypt, bcrypt_filename) of
-        {ok, Filename} ->
+    case application:get_env(bcrypt, bcrypt_priv_path) of
+        {ok, Path} ->
+			PrivDir = code:priv_dir(bcrypt),
+			Filename = filename:join([PrivDir, Path]),
 			%% Check if the binary exists
 			case file:read_file_info(Filename) of
 				{ok, _FileInfo} ->
@@ -67,7 +69,7 @@ start_link() ->
 					%%end;
 					start_link(Filename);
 				{error, Reason} ->
-					{error, {bcrypt_binary_not_found, Reason}}
+					{error, {bcrypt_binary_not_found, Reason, Filename}}
 			end;
         undefined ->
             {error, "env variable 'bcrypt_filename' not set!"}
