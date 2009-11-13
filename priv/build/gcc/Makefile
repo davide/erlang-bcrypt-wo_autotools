@@ -3,6 +3,7 @@
 include ../BuildConfig.mk
 
 TARGET=gcc
+BIN_EXT=""
 
 ERL_INTERFACE_LIBRARY_BINDING=-L$(ERL_INTERFACE_DIR)/lib -lerl_interface -lei
 
