@@ -7,5 +7,5 @@ if [ -n "$1" ]; then
 		echo "No such file: $1.config!"
 	fi
 else
-	exec erl -pa $PWD/ebin -boot start_sasl -s bcrypt_app
+	echo "You must specify which config to use."
 fi
